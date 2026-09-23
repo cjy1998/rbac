@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.jy.rbac.mapper.UserMapper">
+      <insert id="add" useGeneratedKeys="true" keyProperty="userId">
+          insert into sys_user (  avatar, createBy, createTime, deptId, email, nickName, password,
+          phonenumber, remark, sex, status, updateBy, updateTime, userName, userType)
+          values (
+          #{avatar}, #{createBy}, #{createTime}, #{deptId}, #{email}, #{nickName},
+          #{password}, #{phonenumber}, #{remark}, #{sex}, #{status}, #{updateBy}, #{updateTime},
+          #{userName}, #{userType})
+      </insert>
+    <update id="edit">
+        update sys_user
+            <set>
+            <if test="userName != null and userName != ''">
+                userName = #{userName},
+            </if>
+            <if test="nickName != null and nickName != ''">
+                nickName = #{nickName},
+            </if>
+            <if test="phonenumber != null and phonenumber != ''">
+                phonenumber = #{phonenumber},
+            </if>
+            <if test="email != null and email != ''">
+                email = #{email},
+            </if>
+            <if test="avatar != null and avatar != ''">
+                avatar = #{avatar},
+            </if>
+            <if test="sex != null and sex != ''">
+                sex = #{sex},
+            </if>
+            <if test="status != null and status != ''">
+                status = #{status},
+            </if>
+            <if test="deptId != null and deptId != ''">
+                deptId = #{deptId},
+            </if>
+            <if test="userType != null and userType != ''">
+                userType = #{userType},
+            </if>
+            <if test="remark != null and remark != ''">
+                remark = #{remark},
+            </if>
+            <if test="updateBy != null and updateBy != ''">
+                updateBy = #{updateBy},
+            </if>
+            <if test="updateTime != null">
+                updateTime = #{updateTime},
+            </if>
+            </set>
+            where delFlag != '1' and userId = #{userId}
+    </update>
+    <select id="getList" resultType="com.jy.rbac.pojo.entity.User">
+        select userId, userName, nickName, phonenumber, email, avatar, sex, status, deptId, userType,
+        createBy, createTime, updateBy, updateTime, remark
+        from sys_user
+        <where>
+            delFlag != '1'
+            <if test="userName != null">
+              and  userName like concat('%',#{userName},'%')
+            </if>
+            <if test="status != null">
+                and status = #{status}
+            </if>
+            <if test="deptId != null">
+                and deptId = #{deptId}
+            </if>
+            <if test="email != null">
+                and email = #{email}
+            </if>
+
+        </where>
+    </select>
+</mapper>
