@@ -51,4 +51,9 @@ public class AuthServiceImpl implements AuthService {
         loginVO.setToken(tokenInfo.getTokenValue());
         return loginVO;
     }
+
+    @Override
+    public void logout() {
+        StpUtil.logout();
+    }
 }

@@ -5,4 +5,6 @@ import com.jy.rbac.pojo.vo.LoginVO;
 
 public interface AuthService {
     LoginVO login(LoginDTO loginDTO);
+
+    void logout();
 }

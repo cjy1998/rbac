@@ -19,10 +19,16 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
-    @Operation(summary = "登陆")
+    @Operation(summary = "登录")
     @PostMapping("/login")
     public Result<LoginVO> login(@RequestBody LoginDTO loginDTO){
         LoginVO loginVO = authService.login(loginDTO);
         return Result.success(loginVO);
+    }
+    @Operation(summary = "退出登录")
+    @PostMapping("/logout")
+    public Result<String> logout(){
+        authService.logout();
+        return Result.success();
     }
 }
