@@ -1,6 +1,9 @@
 package com.jy.rbac.handler;
 
 import cn.dev33.satoken.exception.NotLoginException;
+import cn.dev33.satoken.exception.NotPermissionException;
+import cn.dev33.satoken.exception.NotRoleException;
+import cn.dev33.satoken.util.SaResult;
 import com.jy.rbac.constant.MessageConstant;
 import com.jy.rbac.exception.BaseException;
 import com.jy.rbac.pojo.common.Result;
@@ -71,6 +74,22 @@ public class GlobalExceptionHandler {
     public Result handleDuplicateKeyException(DuplicateKeyException e){
         log.error("唯一键冲突：{}", e.getMessage());
         return Result.error(MessageConstant.DATA_DUPLICATE);
+    }
+    /**
+     * 权限异常
+     */
+    // 拦截：缺少权限异常
+    @ExceptionHandler(NotPermissionException.class)
+    public SaResult handlerException(NotPermissionException e) {
+        e.printStackTrace();
+        return SaResult.error(MessageConstant.NOT_PERMISSION);
+    }
+
+    // 拦截：缺少角色异常
+    @ExceptionHandler(NotRoleException.class)
+    public SaResult handlerException(NotRoleException e) {
+        e.printStackTrace();
+        return SaResult.error(MessageConstant.NOT_PERMISSION);
     }
     /**
      * 兜底

@@ -32,4 +32,10 @@ public interface MenuMapper {
      * 校验一批 menuId 是否都真实存在（返回的数量必须等于传入数量）
      */
     Long countByIds(@Param("menuIds") List<Long> menuIds);
+
+    /**
+     * 根据userId查询对应的权限code
+     * @param userId
+     */
+    List<String> selectPermsByUserId(Long userId);
 }

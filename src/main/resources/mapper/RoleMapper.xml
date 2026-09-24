@@ -109,5 +109,12 @@
             #{roleId}
         </foreach>
     </select>
+    <select id="selectRoleKeysByUserId" resultType="java.lang.String">
+        select distinct r.roleKey
+        from sys_user_role ur
+        join sys_role r on ur.roleId = r.roleId
+        where ur.userId = #{userId}
+        and r.delFlag != '1'
+    </select>
 
 </mapper>

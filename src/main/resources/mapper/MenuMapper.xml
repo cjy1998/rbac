@@ -144,5 +144,13 @@
             #{menuId}
         </foreach>
     </select>
+    <select id="selectPermsByUserId" resultType="java.lang.String">
+        select distinct m.perms
+        from sys_user_role ur
+        join sys_role_menu rm on ur.roleId = rm.roleId
+        join sys_menu m on rm.menuId = m.menuId
+        where ur.userId = #{userId}
+        and m.perms is not null and m.perms != ''
+    </select>
 
 </mapper>

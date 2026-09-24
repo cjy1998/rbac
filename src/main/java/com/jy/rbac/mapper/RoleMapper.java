@@ -36,4 +36,10 @@ public interface RoleMapper {
      * 校验一批 roleId 是否都真实存在（返回的数量必须等于传入数量）
      */
     Long countByIds(@Param("roleIds") List<Long> roleIds);
+
+    /**
+     * 根据userId查询角色
+     * @param userId
+     */
+    List<String> selectRoleKeysByUserId(Long userId);
 }

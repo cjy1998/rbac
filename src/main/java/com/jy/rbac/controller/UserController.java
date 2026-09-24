@@ -1,5 +1,6 @@
 package com.jy.rbac.controller;
 
+import cn.dev33.satoken.annotation.SaCheckPermission;
 import com.jy.rbac.pojo.common.PageResult;
 import com.jy.rbac.pojo.common.Result;
 import com.jy.rbac.pojo.dto.UserCreateDTO;
@@ -26,35 +27,37 @@ public class UserController {
     private UserService userService;
 
     @Operation(summary = "用户列表")
+    @SaCheckPermission("system:user:list")
     @GetMapping
     public Result<PageResult<UserVO>> getList(@ParameterObject UserPageQueryDTO userPageQueryDTO){
-        log.info("用户列表查询参数：{}",userPageQueryDTO);
         PageResult<UserVO> userVOPageResult = userService.getList(userPageQueryDTO);
         return Result.success(userVOPageResult);
     }
     @Operation(summary = "新增用户")
+    @SaCheckPermission("system:user:add")
     @PostMapping
     public Result<String> add(@RequestBody @Validated UserCreateDTO userCreateDTO){
-        log.info("新增用户数据：{}",userCreateDTO);
         userService.add(userCreateDTO);
         return Result.success();
     }
     @Operation(summary = "用户详情")
+    @SaCheckPermission("system:user:query")
     @GetMapping("/{id}")
     public Result<UserVO> getUserById(@PathVariable Long id){
         UserVO  userVO = userService.getUserById(id);
         return Result.success(userVO);
     }
     @Operation(summary = "删除用户")
+    @SaCheckPermission("system:user:remove")
     @DeleteMapping("/{id}")
     public Result<String> delete(@PathVariable Long id){
         userService.delete(id);
         return Result.success();
     }
     @Operation(summary = "修改用户")
+    @SaCheckPermission("system:user:edit")
     @PostMapping("/update")
     public Result<String> update(@RequestBody @Validated UserUpdateDTO userUpdateDTO){
-        log.info("修改用户数据：{}",userUpdateDTO);
         userService.update(userUpdateDTO);
         return Result.success();
     }

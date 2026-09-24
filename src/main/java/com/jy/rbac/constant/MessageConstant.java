@@ -19,4 +19,6 @@ public class MessageConstant {
     public static final String MENU_NOT_FOUND = "菜单不存在";
     public static final String ROLE_IN_USE = "该角色已分配用户，无法删除";
     public static final String MENU_IN_USE = "该菜单已分配给角色，无法删除";
+    public static final String NOT_PERMISSION = "无权限访问，请联系管理员";
+
 }
